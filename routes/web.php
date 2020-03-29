@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::group( [ 'prefix' => 'invoice' ], function(){
     Route::get( '/', 'InvoiceController@index' );
 } );
+
+Route::group( [ 'prefix' => 'pdf' ], function(){
+    Route::get( '/', 'PdfController@index' );
+} );
