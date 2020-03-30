@@ -9,8 +9,8 @@
     <p>内容{{ $i }}</p>
     <p>
     区分：　{{ $requestItem[ 'classification' . $i ] }}<br>
-    時間：　{{ $requestItem[ 'unit_time' . $i  ] }}時間<br>
-    単価：　{{ number_format( $requestItem[ 'unit_price' . $i ] ) }}円/時間<br>
+    単価：　{{ number_format( $requestItem[ 'unit_time' . $i  ] ) }}円/時間<br>
+    時間：　{{ $requestItem[ 'unit_price' . $i ] }}時間<br>
     計：　<?php if( $requestItem[ 'tax' . $i ] === '1' ){ print('税込 ');}else{ print('税抜 ');}?>{{ number_format( $requestItem[ 'unitMass' . $i ] ) }}円</p><br>
 @endfor
 
