@@ -1,6 +1,14 @@
 
 @extends('common.common')
 @section('content')
+<?php
+/*
+foreach( $clientsItem as $item ){
+    var_dump( json_decode( $item->formContent ) );
+}
+*/
+?>
+
     <form action="/invoice/pdf" method="post">
     {{ csrf_field() }}
     請求先：

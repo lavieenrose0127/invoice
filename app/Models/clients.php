@@ -20,11 +20,6 @@ class clients extends Model
         $model = new clients();
         $model = self::quaryCmpName( $model, $company_name );
         return $model->get();
-        /*
-        $quary = DB::table('clients');
-        $quary = self::quaryCmpName( $quary, $company_name );
-        return $quary->get();
-        */
     }
     
     public static function clientsByName(){
@@ -32,6 +27,23 @@ class clients extends Model
         return $model
             ->select('company_name')
             ->get();
+    }
+
+    /**
+     * 入力内容をjson形式にして保存する
+     * @param array Request
+     * 
+     */
+    public static function addJsonformContent( $inputs ){
+        var_dump( json_encode( $inputs ) );
+
+        $company_name = $inputs['cmpName'];
+        DB::table('clients')
+            ->where( 'company_name', '=', $company_name )
+            ->update( [
+                'formContent' => json_encode( $inputs )
+            ] );
+    
     }
 
     /**
