@@ -55,6 +55,7 @@ class ImageProcessService{
             imagecopyresampled( $image_p, $image_original, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
         
             $outputPath = $this->ImageEntity->getImageOutputPath() . '/' . $image->getFilename();
+            dump($outputPath);
             imagejpeg( $image_p, $outputPath , 100 );
 
             imagedestroy( $image_p );

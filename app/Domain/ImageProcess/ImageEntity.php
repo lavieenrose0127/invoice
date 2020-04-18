@@ -21,7 +21,7 @@ class ImageEntity{
     }
 
     private function genSystemPath(){
-        $systemPath = explode( 'app', __FILE__ )[0] . 'storage/app/';
+        $systemPath = explode( 'Laravel', __FILE__ )[0] . 'Laravel/storage/app/';
         $this->systemPath = $systemPath;
     }
 
@@ -35,11 +35,12 @@ class ImageEntity{
     }
 
     public function getSystemPath(){
-        return $this->systemPath . '/';
+        return $this->systemPath;
     }
 
     public function getImageOutputPath(){
-        return $this->getSystemPath() . $this->imageOutputPath . '/';
+        dump($this->getSystemPath());
+        return $this->getSystemPath() . $this->imageOutputPath;
     }
 
     public function getImageBackupPath(){
