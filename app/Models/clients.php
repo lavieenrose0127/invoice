@@ -5,6 +5,17 @@ namespace App\Models;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * モデル名は Model(先頭大文字単数形)がLaravelのお作法
+ * 基本的にモデル内で自分自身をnewすることはないかな・・・
+ *  $A = Class::find(1);
+ *  $B = Class::find(2);
+ * みたいな感じで外で使うかself::find()みたいな
+ * QueryScopeとかAccessorとかTraitを使うと捗る
+ * https://readouble.com/laravel/5.5/ja/eloquent.html のローカルスコープ項目
+ * https://readouble.com/laravel/5.5/ja/eloquent-mutators.html アクセサ
+ * https://note.com/watarunakayama/n/n4fb2794c3514 トレイト
+ */
 class clients extends Model
 {
     //
@@ -21,7 +32,7 @@ class clients extends Model
         $model = self::quaryCmpName( $model, $company_name );
         return $model->get();
     }
-    
+
     public static function clientsByName(){
         $model = new clients();
         return $model
@@ -32,18 +43,20 @@ class clients extends Model
     /**
      * 入力内容をjson形式にして保存する
      * @param array Request
-     * 
+     *
      */
     public static function addJsonformContent( $inputs ){
         var_dump( json_encode( $inputs ) );
 
         $company_name = $inputs['cmpName'];
         DB::table('clients')
-            ->where( 'company_name', '=', $company_name )
+            ->where( 'company_name', '=', $company_name ) // uodate対象はidとか確実にユニークなもので判定したい
             ->update( [
                 'formContent' => json_encode( $inputs )
             ] );
-    
+
+        // ↓ こう書くとシンプルかつカプセル化がイメージしやすい
+        // self::find($id)->fill($inputs)->update();
     }
 
     /**
@@ -53,7 +66,7 @@ class clients extends Model
      * @return void
      */
     private static function quaryCmpName( $quary, $company_name ){
-        if( empty($company_name) !== true ){ 
+        if( empty($company_name) !== true ){
             return $quary->where( 'company_name', '=', $company_name );
         }else{
             return $quary;

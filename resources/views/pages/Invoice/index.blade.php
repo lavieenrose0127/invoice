@@ -13,6 +13,7 @@ foreach( $clientsItem as $item ){
     {{ csrf_field() }}
     請求先：
     <select class="__invoice_company_operator" name="cmpName" id="">
+        {{-- この辺の使い方はOK --}}
         @foreach( $clientsName as $client )
             <option value="{{ $client->company_name }}">{{ $client->company_name }}</option>
         @endforeach
